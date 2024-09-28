@@ -1,0 +1,6 @@
+@VibePod.API_HostAddress = http://localhost:5224
+
+GET {{VibePod.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
