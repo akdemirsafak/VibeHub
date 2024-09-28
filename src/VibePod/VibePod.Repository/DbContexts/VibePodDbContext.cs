@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using VibePod.Core.Entities;
 
 namespace VibePod.Repository.DbContexts;
 
-public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
+public sealed class VibePodDbContext : IdentityDbContext<AppUser, AppRole, string>
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public VibePodDbContext(DbContextOptions<VibePodDbContext> options) : base(options)
     {
     }
 
@@ -19,7 +20,7 @@ public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(builder);
+       
 
         builder.Entity<AppUser>(entity =>
         {
@@ -35,5 +36,7 @@ public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
         builder.Entity<Playlist>().Navigation(c => c.Contents).AutoInclude();
         builder.Entity<Content>().Navigation(x => x.Categories).AutoInclude();
         builder.Entity<Content>().Navigation(x => x.Vibes).AutoInclude();
+        base.OnModelCreating(builder);
+        builder.Entity<Plan>().HasQueryFilter(p => !p.IsDeleted);
     }
 }
