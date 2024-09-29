@@ -16,7 +16,7 @@ public class PlanController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return Ok(await _planService.GetAlLAsync());
+        return Ok(await _planService.GetAllAsync());
     }
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)

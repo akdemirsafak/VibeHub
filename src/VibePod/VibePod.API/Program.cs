@@ -1,9 +1,7 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using VibePod.Core.Entities;
-using VibePod.Core.Models.Request;
 using VibePod.Core.Repositories;
 using VibePod.Core.Services;
 using VibePod.Repository.DbContexts;
@@ -25,7 +23,7 @@ builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyCont
 
 builder.Services.AddFluentValidationAutoValidation();
 
-string postgresqlConnectionString=builder.Configuration.GetConnectionString("PostgreConnection")!;
+string postgresqlConnectionString = builder.Configuration.GetConnectionString("PostgreConnection")!;
 builder.Services.AddDbContext<VibePodDbContext>((sp, opt) =>
 {
 
@@ -38,10 +36,18 @@ builder.Services.AddIdentity<AppUser, AppRole>(x =>
 })
 .AddEntityFrameworkStores<VibePodDbContext>();
 
-builder.Services.AddScoped<IPlanService, PlanService>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPlanRepository, PlanRepository>();
 
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PlanService)));
+
+
+
+builder.Services.AddScoped<IPlanService, PlanService>();
+builder.Services.AddScoped<ICategoryService,CategoryService>();
+
 
 var app = builder.Build();
 

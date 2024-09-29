@@ -6,7 +6,7 @@ public class Plan : BaseEntity, IAuditableEntity
     public string Description { get; set; }
     public decimal Price { get; set; }
     public bool IsDeleted { get; set; }
-    public DateTime ? CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
     public string? CreatedBy { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public string? UpdatedBy { get; set; }

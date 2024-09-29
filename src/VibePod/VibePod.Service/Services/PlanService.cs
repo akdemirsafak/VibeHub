@@ -20,7 +20,7 @@ public class PlanService : IPlanService
 
     public async Task<PlanResponse> CreateAsync(CreatePlanRequest request)
     {
-        Plan plan= _mapper.Map<Plan>(request);
+        Plan plan = _mapper.Map<Plan>(request);
         plan.CreatedAt = DateTime.UtcNow;
         await _planRepository.CreateAsync(plan);
         return _mapper.Map<PlanResponse>(plan);
@@ -29,17 +29,17 @@ public class PlanService : IPlanService
 
     public async Task DeleteAsync(string id)
     {
-        var plan= await _planRepository.GetByIdAsync(id);
+        var plan = await _planRepository.GetByIdAsync(id);
         plan.IsDeleted = true;
         plan.DeletedAt = DateTime.UtcNow;
         await _planRepository.UpdateAsync(plan);
         //await _planRepository.DeleteAsync(id);
     }
 
-    public async Task<List<PlanResponse>> GetAlLAsync()
+    public async Task<List<PlanResponse>> GetAllAsync()
     {
         var result = await _planRepository.GetAllAsync();
-        return  _mapper.Map<List<PlanResponse>>(result.ToList());
+        return _mapper.Map<List<PlanResponse>>(result.ToList());
     }
 
     public async Task<PlanResponse> GetByIdAsync(string id)
@@ -51,7 +51,7 @@ public class PlanService : IPlanService
 
     public async Task<PlanResponse> UpdateAsync(string id, UpdatePlanRequest request)
     {
-        var plan= await _planRepository.GetByIdAsync(id);
+        var plan = await _planRepository.GetByIdAsync(id);
         plan.Name = request.Name;
         plan.Description = request.Description;
         plan.Price = request.Price;

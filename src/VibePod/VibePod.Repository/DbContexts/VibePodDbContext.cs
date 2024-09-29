@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 using VibePod.Core.Entities;
 
 namespace VibePod.Repository.DbContexts;
@@ -20,7 +19,7 @@ public sealed class VibePodDbContext : IdentityDbContext<AppUser, AppRole, strin
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-       
+
 
         builder.Entity<AppUser>(entity =>
         {
@@ -38,5 +37,7 @@ public sealed class VibePodDbContext : IdentityDbContext<AppUser, AppRole, strin
         builder.Entity<Content>().Navigation(x => x.Vibes).AutoInclude();
         base.OnModelCreating(builder);
         builder.Entity<Plan>().HasQueryFilter(p => !p.IsDeleted);
+        builder.Entity<Category>().HasQueryFilter(p => !p.IsDeleted);
+
     }
 }
