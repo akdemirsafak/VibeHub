@@ -16,7 +16,6 @@ public class Content : BaseEntity, IAuditableEntity
     [MaxLength(256)]
     public string? Lyrics { get; set; }
     public string? ImageUrl { get; set; }
-    public string? Url { get; set; }
     public virtual ICollection<Category> Categories { get; set; }
     public virtual ICollection<Playlist> Playlists { get; set; }
     public virtual ICollection<Vibe> Vibes { get; set; }
