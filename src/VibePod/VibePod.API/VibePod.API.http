@@ -1,6 +1,6 @@
 @VibePod.API_HostAddress = http://localhost:5224
 
-GET {{VibePod.API_HostAddress}}/weatherforecast/
+GET {{VibePod.API_HostAddress}}/plan/
 Accept: application/json
 
 ###

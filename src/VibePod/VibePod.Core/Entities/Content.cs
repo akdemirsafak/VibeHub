@@ -20,11 +20,11 @@ public class Content : BaseEntity, IAuditableEntity
     public virtual ICollection<Category> Categories { get; set; }
     public virtual ICollection<Playlist> Playlists { get; set; }
     public virtual ICollection<Vibe> Vibes { get; set; }
-    public DateTime CreatedAt { get ; set ; }
-    public string CreatedBy { get ; set ; }
-    public DateTime? UpdatedAt { get ; set ; }
-    public string? UpdatedBy { get ; set ; }
-    public bool IsDeleted { get ; set ; }
-    public string? DeletedBy { get ; set ; }
-    public DateTime? DeletedAt { get ; set ; }
+    public DateTime? CreatedAt { get; set; }
+    public string? CreatedBy { get; set; }
+    public DateTime? UpdatedAt { get; set; }
+    public string? UpdatedBy { get; set; }
+    public bool IsDeleted { get; set; }
+    public string? DeletedBy { get; set; }
+    public DateTime? DeletedAt { get; set; }
 }

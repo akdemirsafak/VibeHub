@@ -2,6 +2,6 @@
 
 namespace VibePod.Core.Repositories;
 
-public interface IPlanRepository : IGenericRepository<Plan>
+public interface ICategoryRepository : IGenericRepository<Category>
 {
 }
