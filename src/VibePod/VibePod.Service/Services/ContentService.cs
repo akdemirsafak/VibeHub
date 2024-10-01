@@ -14,10 +14,14 @@ public class ContentService : IContentService
     private readonly IVibeRepository _vibeRepository;
     private readonly IMapper _mapper;
 
-    public ContentService(IContentRepository contentRepository, 
-        IMapper mapper)
+    public ContentService(IContentRepository contentRepository,
+        ICategoryRepository categoryRepository,
+        IVibeRepository vibeRepository,
+    IMapper mapper)
     {
         _contentRepository = contentRepository;
+        _categoryRepository = categoryRepository;
+        _vibeRepository = vibeRepository;
         _mapper = mapper;
     }
 
