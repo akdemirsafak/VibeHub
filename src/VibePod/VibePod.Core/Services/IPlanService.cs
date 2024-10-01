@@ -10,5 +10,4 @@ public interface IPlanService
     Task<PlanResponse> CreateAsync(CreatePlanRequest request);
     Task<PlanResponse> UpdateAsync(string id, UpdatePlanRequest request);
     Task DeleteAsync(string id);
-
 }

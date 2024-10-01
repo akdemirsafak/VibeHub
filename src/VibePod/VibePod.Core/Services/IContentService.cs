@@ -1,5 +1,4 @@
-﻿using VibePod.Core.Models.Request.Category;
-using VibePod.Core.Models.Request.Content;
+﻿using VibePod.Core.Models.Request.Content;
 using VibePod.Core.Models.Response;
 
 namespace VibePod.Core.Services;

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using VibePod.Core.Entities;
 using VibePod.Core.Models.Request.Content;
 using VibePod.Core.Models.Response;
 using VibePod.Core.Repositories;
@@ -20,9 +21,38 @@ public class ContentService : IContentService
         _mapper = mapper;
     }
 
-    public Task<ContentResponse> CreateAsync(CreateContentRequest request)
+    public async Task<ContentResponse> CreateAsync(CreateContentRequest request)
     {
-        throw new NotImplementedException();
+        List<Vibe> vibeList = new();
+        foreach (var vibeId in request.SelectedMoods)
+        {
+            Vibe existVibe = await _vibeRepository.GetByIdAsync(vibeId);
+            if (existVibe is not null)
+                vibeList.Add(existVibe);
+        }
+
+        //Categories
+        List<Category> categoryList = new();
+        foreach (var categoryId in request.SelectedCategories)
+        {
+            Category existCategory = await _categoryRepository.GetByIdAsync(categoryId);
+            if (existCategory != null)
+                categoryList.Add(existCategory);
+        }
+
+        var content = new Content()
+        {
+            Name = request.Name,
+            Lyrics = request.Lyrics,
+            //ImageUrl = imageUrl,    => File upload is not implemented yet
+            Categories = categoryList,
+            Vibes = vibeList
+        };
+
+        //SaveOperations
+        await _contentRepository.CreateAsync(content);
+        //return content.Adapt<CreatedContentResponse>();
+        return _mapper.Map<ContentResponse>(content);
     }
 
     public async Task DeleteAsync(string id)
@@ -48,6 +78,8 @@ public class ContentService : IContentService
     {
         var content= await _contentRepository.GetByIdAsync(id);
         content.Name = request.Name;
+        content.Lyrics = request.Lyrics;
+        // Burada diğer alanları doldurabiliriz.
         await _contentRepository.UpdateAsync(content);
         return _mapper.Map<ContentResponse>(content);
     }
