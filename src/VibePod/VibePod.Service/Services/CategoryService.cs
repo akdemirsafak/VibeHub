@@ -22,7 +22,6 @@ public class CategoryService : ICategoryService
     public async Task<CategoryResponse> CreateAsync(CreateCategoryRequest request)
     {
         Category category = _mapper.Map<Category>(request);
-        category.CreatedAt = DateTime.UtcNow;
         await _categoryRepository.CreateAsync(category);
         return _mapper.Map<CategoryResponse>(category);
 
@@ -31,10 +30,7 @@ public class CategoryService : ICategoryService
     public async Task DeleteAsync(string id)
     {
         var category = await _categoryRepository.GetByIdAsync(id);
-        category.IsDeleted = true;
-        category.DeletedAt = DateTime.UtcNow;
-        await _categoryRepository.UpdateAsync(category);
-        //await _categoryRepository.DeleteAsync(id);
+        await _categoryRepository.DeleteAsync(category);
     }
 
     public async Task<List<CategoryResponse>> GetAllAsync()
@@ -55,9 +51,6 @@ public class CategoryService : ICategoryService
         var category = await _categoryRepository.GetByIdAsync(id);
         category.Name = request.Name;
         category.ImageUrl = request.ImageUrl;
-        category.UpdatedAt = DateTime.UtcNow;
-
-
         await _categoryRepository.UpdateAsync(category);
 
         return _mapper.Map<CategoryResponse>(category);

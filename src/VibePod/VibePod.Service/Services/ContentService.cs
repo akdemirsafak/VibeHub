@@ -55,7 +55,6 @@ public class ContentService : IContentService
 
         //SaveOperations
         await _contentRepository.CreateAsync(content);
-        //return content.Adapt<CreatedContentResponse>();
         return _mapper.Map<ContentResponse>(content);
     }
 

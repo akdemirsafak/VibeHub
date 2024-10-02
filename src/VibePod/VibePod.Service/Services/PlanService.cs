@@ -21,7 +21,6 @@ public class PlanService : IPlanService
     public async Task<PlanResponse> CreateAsync(CreatePlanRequest request)
     {
         Plan plan = _mapper.Map<Plan>(request);
-        plan.CreatedAt = DateTime.UtcNow;
         await _planRepository.CreateAsync(plan);
         return _mapper.Map<PlanResponse>(plan);
 
@@ -30,10 +29,8 @@ public class PlanService : IPlanService
     public async Task DeleteAsync(string id)
     {
         var plan = await _planRepository.GetByIdAsync(id);
-        plan.IsDeleted = true;
-        plan.DeletedAt = DateTime.UtcNow;
-        await _planRepository.UpdateAsync(plan);
-        //await _planRepository.DeleteAsync(id);
+
+        await _planRepository.DeleteAsync(plan);
     }
 
     public async Task<List<PlanResponse>> GetAllAsync()
@@ -55,8 +52,6 @@ public class PlanService : IPlanService
         plan.Name = request.Name;
         plan.Description = request.Description;
         plan.Price = request.Price;
-        plan.UpdatedAt = DateTime.UtcNow;
-
 
         await _planRepository.UpdateAsync(plan);
 

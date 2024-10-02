@@ -31,11 +31,7 @@ public class VibeService : IVibeService
     public async Task DeleteAsync(string id)
     {
         var vibe=await _vibeRepository.GetByIdAsync(id);
-        vibe.IsDeleted = true;
-        vibe.DeletedAt = DateTime.UtcNow;
-        await _vibeRepository.UpdateAsync(vibe);
-
-        //await _vibeRepository.DeleteAsync(vibe);
+        await _vibeRepository.DeleteAsync(vibe);
     }
 
     public async Task<List<VibeResponse>> GetAllAsync()
@@ -55,8 +51,6 @@ public class VibeService : IVibeService
         var entity= await _vibeRepository.GetByIdAsync(id);
         entity.Name = request.Name;
         entity.ImageUrl = request.ImageUrl;
-        entity.UpdatedAt = DateTime.UtcNow;
-        await _vibeRepository.UpdateAsync(entity);
         return _mapper.Map<VibeResponse>(entity);
 
     }
