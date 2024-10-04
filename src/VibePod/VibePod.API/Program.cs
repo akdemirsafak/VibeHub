@@ -40,13 +40,17 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+builder.Services.AddScoped<IVibeRepository, VibeRepository>();
+builder.Services.AddScoped<IContentRepository, ContentRepository>();
 
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PlanService)));
 
 
 
 builder.Services.AddScoped<IPlanService, PlanService>();
-builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IVibeService, VibeService>();
+builder.Services.AddScoped<IContentService, ContentService>();
 
 
 var app = builder.Build();

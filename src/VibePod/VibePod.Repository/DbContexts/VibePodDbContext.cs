@@ -40,4 +40,31 @@ public sealed class VibePodDbContext : IdentityDbContext<AppUser, AppRole, strin
         builder.Entity<Category>().HasQueryFilter(p => !p.IsDeleted);
 
     }
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        ChangeTracker.DetectChanges();
+        var entries = ChangeTracker.Entries();
+        foreach (var entry in entries)
+        {
+            if (entry.Entity is IAuditableEntity entity)
+            {
+                var now = DateTime.UtcNow;
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entity.CreatedAt = now;
+                        break;
+                    case EntityState.Modified:
+                        entity.UpdatedAt = now;
+                        break;
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Modified;
+                        entity.IsDeleted = true;
+                        entity.DeletedAt = now;
+                        break;
+                }
+            }
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
 }
