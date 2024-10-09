@@ -1,4 +1,4 @@
-﻿namespace VibePass.Core.Models;
+﻿namespace VibePass.Core.Models.Category;
 
 public class CategoryResponse
 {

@@ -1,5 +1,5 @@
 ﻿using VibePass.Core.Entities;
-using VibePass.Core.Models;
+using VibePass.Core.Models.Category;
 
 namespace VibePass.Core.Repository;
 

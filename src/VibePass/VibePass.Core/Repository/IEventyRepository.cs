@@ -1,5 +1,5 @@
 ﻿using VibePass.Core.Entities;
-using VibePass.Core.Models;
+using VibePass.Core.Models.Eventy;
 
 namespace VibePass.Core.Repository;
 

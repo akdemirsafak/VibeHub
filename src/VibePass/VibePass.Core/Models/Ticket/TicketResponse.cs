@@ -1,4 +1,6 @@
-﻿namespace VibePass.Core.Models;
+﻿using VibePass.Core.Models.Eventy;
+
+namespace VibePass.Core.Models.Ticket;
 
 public class TicketResponse
 {
