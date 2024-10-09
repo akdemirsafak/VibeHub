@@ -1,13 +1,13 @@
-﻿
-namespace VibePass.Core.Entities;
+﻿namespace VibePass.Core.Models;
 
-public class Ticket : BaseEntity, IAuditableEntity
+public class TicketResponse
 {
+    public string Id { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
     public decimal Price { get; set; }
     public int Quantity { get; set; }
-    public virtual Eventy Eventy { get; set; }
+    public virtual EventyResponse Eventy { get; set; }
     public string EventyId { get; set; }
     public DateTime? CreatedAt { get; set; }
     public string? CreatedBy { get; set; }
