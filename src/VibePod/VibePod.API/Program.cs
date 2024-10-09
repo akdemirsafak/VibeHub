@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Reflection;
 using VibePod.Core.Entities;
 using VibePod.Core.Repositories;
@@ -52,6 +53,17 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IVibeService, VibeService>();
 builder.Services.AddScoped<IContentService, ContentService>();
 
+builder.Host.UseSerilog();
+
+
+
+Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.Console()
+            .WriteTo.Seq("http://localhost:5341/")
+            //.WriteTo.File("logs/myBeatifulLog-.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+
 
 var app = builder.Build();
 
@@ -60,6 +72,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
