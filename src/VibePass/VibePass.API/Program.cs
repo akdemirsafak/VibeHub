@@ -1,8 +1,10 @@
+using FluentValidation.AspNetCore;
 using VibePass.Core.Repository;
 using VibePass.Core.Service;
 using VibePass.Repository.Repositories;
 using VibePass.Service.Mappers;
 using VibePass.Service.Services;
+using VibePass.Service.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,12 @@ builder.Services.AddScoped<IEventyService, EventyService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 
 builder.Services.AddAutoMapper(typeof(CommonMapper));
+
+
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCategoryRequestValidator>());
+
+builder.Services.AddFluentValidationAutoValidation();
+
 
 
 var app = builder.Build();

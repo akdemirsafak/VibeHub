@@ -1,7 +1,4 @@
-﻿using VibePass.Core.Models.Category;
-using VibePass.Core.Models.Ticket;
-
-namespace VibePass.Core.Models.Eventy;
+﻿namespace VibePass.Core.Models.Eventy;
 
 public class EventyResponse
 {
@@ -13,8 +10,8 @@ public class EventyResponse
     public string Location { get; set; }
     public string? ImageUrl { get; set; }
     //public virtual ICollection<Performer> Performers { get; set; }
-    public virtual ICollection<CategoryResponse> Category { get; set; }
-    public virtual ICollection<TicketResponse> Tickets { get; set; }
+    //public virtual ICollection<CategoryResponse> Category { get; set; }
+    //public virtual ICollection<TicketResponse> Tickets { get; set; }
     public DateTime? CreatedAt { get; set; }
     public string? CreatedBy { get; set; }
     public DateTime? UpdatedAt { get; set; }

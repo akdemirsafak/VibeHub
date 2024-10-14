@@ -1,4 +1,6 @@
-﻿using VibePass.Core.Models.Eventy;
+﻿using AutoMapper;
+using VibePass.Core.Entities;
+using VibePass.Core.Models.Eventy;
 using VibePass.Core.Repository;
 using VibePass.Core.Service;
 
@@ -7,34 +9,50 @@ namespace VibePass.Service.Services;
 public class EventyService : IEventyService
 {
     private readonly IEventyRepository _eventyRepository;
+    private readonly IMapper _mapper;
 
-    public EventyService(IEventyRepository eventyRepository)
+    public EventyService(IEventyRepository eventyRepository, IMapper mapper)
     {
         _eventyRepository = eventyRepository;
+        _mapper = mapper;
     }
 
-    public Task CreateAsync(CreateEventyRequest createEventyRequest)
+    public async Task CreateAsync(CreateEventyRequest createEventyRequest)
     {
-        throw new NotImplementedException();
+        Eventy entity = _mapper.Map<Eventy>(createEventyRequest);
+        await _eventyRepository.CreateAsync(entity);
     }
 
-    public Task<int> DeleteByIdAsync(string id)
+    public async Task<int> DeleteByIdAsync(string id)
     {
-        throw new NotImplementedException();
+        return await _eventyRepository.DeleteByIdAsync(id);
     }
 
-    public Task<List<EventyResponse>> GetAllAsync()
+    public async Task<List<EventyResponse>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _eventyRepository.GetAllAsync();
     }
 
-    public Task<EventyResponse> GetByIdAsync(string id)
+    public async Task<EventyResponse> GetByIdAsync(string id)
     {
-        throw new NotImplementedException();
+        return await _eventyRepository.GetByIdAsync(id);
     }
 
-    public Task UpdateAsync(string id, UpdateEventyRequest updateEventyRequest)
+    public async Task UpdateAsync(string id, UpdateEventyRequest updateEventyRequest)
     {
-        throw new NotImplementedException();
+        var eventy = await _eventyRepository.GetByIdAsync(id);
+        if (eventy == null)
+        {
+            throw new Exception("Event not found.");
+        }
+        Eventy entity = _mapper.Map<Eventy>(eventy);
+        entity.Title = updateEventyRequest.Title;
+        entity.Description = updateEventyRequest.Description;
+        entity.StartDate = updateEventyRequest.StartDate;
+        entity.EndDate = updateEventyRequest.EndDate;
+        entity.Location = updateEventyRequest.Location;
+        entity.ImageUrl = updateEventyRequest.ImageUrl;
+
+        await _eventyRepository.UpdateAsync(id, entity);
     }
 }

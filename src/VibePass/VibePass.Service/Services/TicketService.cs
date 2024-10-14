@@ -1,4 +1,5 @@
-﻿using VibePass.Core.Entities;
+﻿using AutoMapper;
+using VibePass.Core.Entities;
 using VibePass.Core.Models.Ticket;
 using VibePass.Core.Repository;
 using VibePass.Core.Service;
@@ -8,22 +9,18 @@ namespace VibePass.Service.Services;
 public class TicketService : ITicketService
 {
     private readonly ITicketRepository _ticketRepository;
+    private readonly IMapper _mapper;
 
-    public TicketService(ITicketRepository ticketRepository)
+    public TicketService(ITicketRepository ticketRepository, IMapper mapper)
     {
         _ticketRepository = ticketRepository;
+        _mapper = mapper;
     }
 
     public async Task CreateAsync(CreateTicketRequest createTicketRequest)
     {
-        await _ticketRepository.CreateAsync(new Ticket
-        {
-            Name=createTicketRequest.Name,
-            Price = createTicketRequest.Price,
-            Quantity = createTicketRequest.Quantity,
-            EventyId = createTicketRequest.EventId,
-            Description = createTicketRequest.Description
-        });
+        Ticket ticket = _mapper.Map<Ticket>(createTicketRequest);
+        await _ticketRepository.CreateAsync(ticket);
     }
 
     public async Task<int> DeleteByIdAsync(string id)
@@ -43,12 +40,17 @@ public class TicketService : ITicketService
 
     public async Task UpdateAsync(string id, UpdateTicketRequest updateTicketRequest)
     {
-        await _ticketRepository.UpdateAsync(id, new Ticket
+        var ticket = await _ticketRepository.GetByIdAsync(id);
+        if (ticket == null)
         {
-            Name = updateTicketRequest.Name,
-            Price = updateTicketRequest.Price,
-            Quantity = updateTicketRequest.Quantity,
-            Description = updateTicketRequest.Description
-        });
+            throw new Exception("Ticket not found.");
+        }
+        var entity = _mapper.Map<Ticket>(ticket);
+        entity.Name = updateTicketRequest.Name;
+        entity.Price = updateTicketRequest.Price;
+        entity.Quantity = updateTicketRequest.Quantity;
+        entity.Description = updateTicketRequest.Description;
+
+        await _ticketRepository.UpdateAsync(id, entity);
     }
 }

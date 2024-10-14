@@ -15,30 +15,42 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
     public async Task CreateAsync(Category entity)
     {
         DynamicParameters dynamicParameters = new DynamicParameters();
+        dynamicParameters.Add("Id", entity.Id);
         dynamicParameters.Add("Name", entity.Name);
         dynamicParameters.Add("Description", entity.Description);
         dynamicParameters.Add("CreatedAt", DateTime.UtcNow);
 
-        string query = @"INSERT INTO Categories (Name, Description, CreatedAt) VALUES (@Name, @Description, @CreatedAt)";
+        string query = @"INSERT INTO Categories (Id,Name, Description, CreatedAt) VALUES (@Id, @Name, @Description, @CreatedAt)";
         await _dbConnection.ExecuteAsync(query, dynamicParameters);
     }
 
     public async Task<int> DeleteByIdAsync(string id)
     {
-        string query = @"Select * from Categories Where Id=@id";
-        string command = @"Delete from Categories Where Id=@id";
-        Category category = await _dbConnection.QuerySingleOrDefaultAsync<Category>(query, id);
+        string query = @"Select * from Categories Where Id=@Id";
+
+        DynamicParameters dynamicParameters = new DynamicParameters();
+        dynamicParameters.Add("Id", id);
+
+
+        if (string.IsNullOrEmpty(query))
+        {
+            throw new Exception("Category not found.");
+        }
+        string command = $@"Delete from Categories Where Id=Id";
+        Category category = await _dbConnection.QuerySingleOrDefaultAsync<Category>(query, dynamicParameters);
         if (category != null)
             return await _dbConnection.ExecuteAsync(command, id);
         return 0;
     }
     public async Task UpdateAsync(string id, Category entity)
     {
-        string query = $"Select * from Categories where Id=@id";
-        Category category = await _dbConnection.QuerySingleOrDefaultAsync<Category>(query, id);
+        string query = $"Select * from Categories where Id=@Id";
+        DynamicParameters idParameter = new DynamicParameters();
+        idParameter.Add("Id", id);
+        Category category = await _dbConnection.QuerySingleOrDefaultAsync<Category>(query, idParameter);
         if (category == null)
         {
-            throw new Exception("Category not found");
+            throw new Exception("Category not found.");
         }
         string command = @"Update Categories Set Name=@Name, Description=@Description Where Id=@Id";
 
@@ -53,15 +65,18 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
 
     public async Task<List<CategoryResponse>> GetAllAsync()
     {
-        var query = "Select * from Categories";
+        string query = "Select * from Categories";
         var categories = await _dbConnection.QueryAsync<CategoryResponse>(query);
         return categories.ToList();
     }
 
     public async Task<CategoryResponse> GetByIdAsync(string id)
     {
-        var query = "Select * from Categories where Id=@id";
-        CategoryResponse category = await _dbConnection.QuerySingleOrDefaultAsync<CategoryResponse>(query, id);
+        //var query = $"Select * from Categories where Id='{id}'";
+        string query = $"Select * from Categories where Id=@Id";
+        DynamicParameters dynamicParameters = new DynamicParameters();
+        dynamicParameters.Add("Id", id);
+        CategoryResponse category = await _dbConnection.QuerySingleOrDefaultAsync<CategoryResponse>(query, dynamicParameters);
         return category;
     }
 

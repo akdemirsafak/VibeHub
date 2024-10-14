@@ -10,8 +10,17 @@ public class CommonMapper : Profile
 {
     public CommonMapper()
     {
-        CreateMap<CreateTicketRequest,Ticket>();
-        CreateMap<CreateEventyRequest,Eventy>();
-        CreateMap<CreateCategoryRequest,Category>();
-    }     
+        ////
+        CreateMap<CreateTicketRequest, Ticket>()
+            .ForMember(destinationMember => destinationMember.CreatedAt, memberOptions => memberOptions.MapFrom(source => DateTime.UtcNow));
+        CreateMap<TicketResponse, Ticket>().ReverseMap();
+        ////
+        CreateMap<CreateEventyRequest, Eventy>()
+            .ForMember(destinationMember => destinationMember.CreatedAt, memberOptions => memberOptions.MapFrom(source => DateTime.UtcNow));
+        CreateMap<EventyResponse, Eventy>().ReverseMap();
+        ////
+        CreateMap<CreateCategoryRequest, Category>()
+            .ForMember(destinationMember => destinationMember.CreatedAt, memberOptions => memberOptions.MapFrom(source => DateTime.UtcNow));
+        CreateMap<CategoryResponse, Category>().ReverseMap();
+    }
 }

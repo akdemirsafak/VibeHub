@@ -15,8 +15,8 @@ public class TicketRepository : BaseRepository, ITicketRepository
     public async Task CreateAsync(Ticket entity)
     {
         string command = @"INSERT INTO Tickets 
-                        (Name, Description, Price, Quantity, EventyId, CreatedAt) 
-                        VALUES (@Name, @Description, @Price, @Quantity, @EventyId, @CreatedAt) 
+                        (Id, Name, Description, Price, Quantity, EventyId, CreatedAt) 
+                        VALUES (@Id,@Name, @Description, @Price, @Quantity, @EventyId, @CreatedAt) 
                         RETURNING *";
         DynamicParameters queryParameters = new DynamicParameters();
         queryParameters.Add("Name", entity.Name);
@@ -79,7 +79,9 @@ public class TicketRepository : BaseRepository, ITicketRepository
     public async Task UpdateAsync(string id, Ticket entity)
     {
         string query = @"SELECT Count(*) FROM Tickets WHERE Id=@Id";
-        int count = _dbConnection.ExecuteScalar<int>(query, id);
+        DynamicParameters idParameter = new DynamicParameters();
+        idParameter.Add("Id", id);
+        int count = _dbConnection.ExecuteScalar<int>(query, idParameter);
         if (count != 0)
             throw new ArgumentNullException("Ticket not found");
 

@@ -1,4 +1,5 @@
-﻿using VibePass.Core.Entities;
+﻿using AutoMapper;
+using VibePass.Core.Entities;
 using VibePass.Core.Models.Category;
 using VibePass.Core.Repository;
 using VibePass.Core.Service;
@@ -8,19 +9,16 @@ namespace VibePass.Service.Services;
 public class CategoryService : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
-
-    public CategoryService(ICategoryRepository categoryRepository)
+    private readonly IMapper _mapper;
+    public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
     {
         _categoryRepository = categoryRepository;
+        _mapper = mapper;
     }
 
     public async Task CreateAsync(CreateCategoryRequest categoryRequest)
     {
-        Category category = new()
-        {
-            Name = categoryRequest.Name,
-            Description = categoryRequest.Description
-        };
+        Category category = _mapper.Map<Category>(categoryRequest);
         await _categoryRepository.CreateAsync(category);
     }
 
