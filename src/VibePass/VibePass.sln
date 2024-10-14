@@ -5,11 +5,11 @@ VisualStudioVersion = 17.12.35323.107
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibePass.API", "VibePass.API\VibePass.API.csproj", "{5399F036-519D-4565-B864-86A8533ADE63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibePass.Core", "VibePass.Core\VibePass.Core.csproj", "{0880D398-00A7-4DCD-854F-B52F33F6765B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibePass.Core", "VibePass.Core\VibePass.Core.csproj", "{D375B11F-4DAE-40B0-A6F0-D93573FB8080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibePass.Service", "VibePass.Service\VibePass.Service.csproj", "{31FC7AB3-9448-4B61-A8EC-55F60082FF35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibePass.Repository", "VibePass.Repository\VibePass.Repository.csproj", "{558E7E87-622C-4458-B122-6BE68369A876}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibePass.Repository", "VibePass.Repository\VibePass.Repository.csproj", "{263BCF12-3D68-4EBB-B8EC-479A871B83B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibePass.Service", "VibePass.Service\VibePass.Service.csproj", "{CA063F8E-3F23-4BAF-8FC9-6EE10E6F2605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		{5399F036-519D-4565-B864-86A8533ADE63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5399F036-519D-4565-B864-86A8533ADE63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5399F036-519D-4565-B864-86A8533ADE63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0880D398-00A7-4DCD-854F-B52F33F6765B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0880D398-00A7-4DCD-854F-B52F33F6765B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0880D398-00A7-4DCD-854F-B52F33F6765B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0880D398-00A7-4DCD-854F-B52F33F6765B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31FC7AB3-9448-4B61-A8EC-55F60082FF35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31FC7AB3-9448-4B61-A8EC-55F60082FF35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31FC7AB3-9448-4B61-A8EC-55F60082FF35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31FC7AB3-9448-4B61-A8EC-55F60082FF35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{263BCF12-3D68-4EBB-B8EC-479A871B83B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{263BCF12-3D68-4EBB-B8EC-479A871B83B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{263BCF12-3D68-4EBB-B8EC-479A871B83B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{263BCF12-3D68-4EBB-B8EC-479A871B83B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D375B11F-4DAE-40B0-A6F0-D93573FB8080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D375B11F-4DAE-40B0-A6F0-D93573FB8080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D375B11F-4DAE-40B0-A6F0-D93573FB8080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D375B11F-4DAE-40B0-A6F0-D93573FB8080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{558E7E87-622C-4458-B122-6BE68369A876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{558E7E87-622C-4458-B122-6BE68369A876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{558E7E87-622C-4458-B122-6BE68369A876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{558E7E87-622C-4458-B122-6BE68369A876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA063F8E-3F23-4BAF-8FC9-6EE10E6F2605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA063F8E-3F23-4BAF-8FC9-6EE10E6F2605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA063F8E-3F23-4BAF-8FC9-6EE10E6F2605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA063F8E-3F23-4BAF-8FC9-6EE10E6F2605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
