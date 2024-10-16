@@ -97,7 +97,7 @@ public class EventyRepository : BaseRepository, IEventyRepository
             OFFSET @Offset LIMIT @PageSize";
         DynamicParameters dynamicParameters = new DynamicParameters();
         dynamicParameters.Add("Offset", offset);
-        dynamicParameters.Add("@PageSize", pageSize);
+        dynamicParameters.Add("PageSize", pageSize);
         var response = await _dbConnection.QueryAsync<EventyResponse>(query, dynamicParameters);
         return response.ToList();
     }

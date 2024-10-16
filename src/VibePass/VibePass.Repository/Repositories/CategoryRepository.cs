@@ -31,16 +31,13 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         DynamicParameters dynamicParameters = new DynamicParameters();
         dynamicParameters.Add("Id", id);
 
-
-        if (string.IsNullOrEmpty(query))
-        {
-            throw new Exception("Category not found.");
-        }
-        string command = $@"Delete from Categories Where Id=Id";
         Category category = await _dbConnection.QuerySingleOrDefaultAsync<Category>(query, dynamicParameters);
-        if (category != null)
-            return await _dbConnection.ExecuteAsync(command, id);
-        return 0;
+        if (category is null)
+            throw new Exception("Category not found.");
+
+        string command = $@"Update Categories Set IsDeleted=true,UpdatedAt=@UpdatedAt Where Id=@Id";
+        dynamicParameters.Add("UpdatedAt", DateTime.UtcNow);
+        return await _dbConnection.ExecuteAsync(command, dynamicParameters);
     }
     public async Task UpdateAsync(string id, Category entity)
     {

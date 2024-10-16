@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using VibePass.Core.Entities;
 using VibePass.Core.Models.Ticket;
 using VibePass.Core.Repository;
+using static Dapper.SqlMapper;
 
 namespace VibePass.Repository.Repositories;
 
@@ -29,15 +30,19 @@ public class TicketRepository : BaseRepository, ITicketRepository
         await _dbConnection.ExecuteAsync(command, queryParameters);
     }
 
-    public Task<int> DeleteByIdAsync(string id)
+    public async Task<int> DeleteByIdAsync(string id)
     {
         string query = @"SELECT Count(*) FROM Tickets WHERE Id=@Id";
-        int count = _dbConnection.ExecuteScalar<int>(query, id);
-        if (count != 0)
-            throw new ArgumentNullException("Ticket not found");
+        DynamicParameters dynamicParameters = new DynamicParameters();
+        dynamicParameters.Add("Id", id);
 
-        string command = @"DELETE FROM Tickets WHERE Id=@Id";
-        return _dbConnection.ExecuteAsync(command, id);
+        Ticket ticket = await _dbConnection.QuerySingleOrDefaultAsync<Ticket>(query,dynamicParameters);
+        if (ticket is null)
+            throw new ArgumentNullException("Ticket not found.");
+
+        string command = $@"Update Tickets Set IsDeleted=true,DeletedAt=@DeletedAt Where Id=@Id";
+        dynamicParameters.Add("DeletedAt", DateTime.UtcNow);
+        return await _dbConnection.ExecuteAsync(command, dynamicParameters);
     }
 
     public async Task<List<TicketResponse>> GetAllAsync()
