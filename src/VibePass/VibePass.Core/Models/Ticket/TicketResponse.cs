@@ -2,7 +2,7 @@
 
 namespace VibePass.Core.Models.Ticket;
 
-public class TicketResponse
+public class TicketResponse : BaseResponse
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -11,11 +11,4 @@ public class TicketResponse
     public int Quantity { get; set; }
     public virtual EventyResponse Eventy { get; set; }
     public string EventyId { get; set; }
-    public DateTime? CreatedAt { get; set; }
-    public string? CreatedBy { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-    public string? UpdatedBy { get; set; }
-    public bool IsDeleted { get; set; }
-    public string? DeletedBy { get; set; }
-    public DateTime? DeletedAt { get; set; }
 }

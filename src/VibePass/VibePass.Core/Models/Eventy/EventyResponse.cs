@@ -1,6 +1,6 @@
 ﻿namespace VibePass.Core.Models.Eventy;
 
-public class EventyResponse
+public class EventyResponse : BaseResponse
 {
     public string Id { get; set; }
     public string Title { get; set; }
@@ -12,11 +12,5 @@ public class EventyResponse
     //public virtual ICollection<Performer> Performers { get; set; }
     //public virtual ICollection<CategoryResponse> Category { get; set; }
     //public virtual ICollection<TicketResponse> Tickets { get; set; }
-    public DateTime? CreatedAt { get; set; }
-    public string? CreatedBy { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-    public string? UpdatedBy { get; set; }
-    public bool IsDeleted { get; set; }
-    public string? DeletedBy { get; set; }
-    public DateTime? DeletedAt { get; set; }
+   
 }
